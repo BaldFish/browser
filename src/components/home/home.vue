@@ -1,6 +1,6 @@
 <template>
   <div class="m-header">
-    <h1 class="text">区块链浏览器</h1>
+    home
   </div>
 </template>
 
@@ -9,5 +9,5 @@
 export default {};
 </script>
 
-// <style scoped lang="stylus" rel="stylesheet/stylus">
+<style scoped lang="stylus" rel="stylesheet/stylus">
 </style>
