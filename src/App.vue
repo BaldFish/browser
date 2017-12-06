@@ -1,17 +1,21 @@
 <template>
   <div id="app">
-    <h1 class="text">区块链浏览器</h1>
-    <div class="nav">
-      <router-link to="/home">首页</router-link>
-    </div>
-    <div class="nav">
-      <router-link to="/block">区块公示</router-link>
-    </div>
-    <div class="nav">
-      <router-link to="/card">存证公示</router-link>
-    </div>
-    <div class="nav">
-      <router-link to="/account">账户身份</router-link>
+    <div class="head">
+      <h1 class="text">区块链浏览器</h1>
+      <ul>
+        <li class="nav">
+          <router-link to="/home">首页</router-link>
+        </li>
+        <li class="nav">
+          <router-link to="/block">区块公示</router-link>
+        </li>
+        <li class="nav">
+          <router-link to="/card">存证公示</router-link>
+        </li>
+        <li class="nav">
+          <router-link to="/account">账户身份</router-link>
+        </li>
+      </ul>
     </div>
     <keep-alive>
       <router-view></router-view>
@@ -22,6 +26,7 @@
 <script type="text/ecmascript-6">
 import axios from "axios";
 import "./common/stylus/index.styl";
+
 export default {
   name: "app",
   data() {
@@ -42,11 +47,34 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-h1 {
-  display: inline-block;
-}
+@import './common/stylus/mixin.styl';
 
-.nav {
-  display: inline-block;
+.head {
+  padding: 0px 30px;
+
+  .text, ul, .nav {
+    display: inline-block;
+  }
+
+  .text {
+    background: url('./components/home/star24_on@2x.png') no-repeat left top;
+    padding-left: 20px;
+    margin-right: 60px;
+    font-size: 20px;
+  }
+
+  .nav {
+    height: 50px;
+
+    & > a {
+      display: inline-block;
+      padding: 15px 10px;
+
+      &.router-link-active {
+        color: #008080;
+        border-bottom: 2px solid #008080;
+      }
+    }
+  }
 }
 </style>

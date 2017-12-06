@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="">
+    <div class="serch">
       <input type="text" >
       <button>搜索</button>
     </div>
@@ -59,4 +59,14 @@ export default {};
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+.home {
+  .serch {
+    padding: 5px;
+
+    input {
+      padding: 5px;
+      border: 1px solid blue;
+    }
+  }
+}
 </style>
