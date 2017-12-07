@@ -18,7 +18,7 @@
       </ul>
     </div>
     <keep-alive>
-      <router-view></router-view>
+      <router-view :apidata="apidata"></router-view>
     </keep-alive>
   </div>
 </template>
@@ -26,18 +26,24 @@
 <script type="text/ecmascript-6">
 import axios from "axios";
 import "./common/stylus/index.styl";
+const ERR_OK = 0;
 
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      apidata: {}
+    };
   },
   components: {},
   created() {
     axios
       .get("/api")
-      .then(function(response) {
-        console.log(response);
+      .then(response => {
+        response = response.data;
+        if (response.errno === ERR_OK) {
+          this.apidata = response.data;
+        }
       })
       .catch(function(error) {
         console.log(error);
@@ -51,6 +57,8 @@ export default {
 
 .head {
   padding: 0px 30px;
+  width: 1366px;
+  margin: 0 auto;
 
   .text, ul, .nav {
     display: inline-block;
