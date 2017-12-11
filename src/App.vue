@@ -40,9 +40,10 @@ export default {
     axios
       .get("/api")
       .then(response => {
-        response = response.data;
+        var response = response.data;
         if (response.errno === ERR_OK) {
-          this.apidata = response.data;
+          response = response.data;
+          this.apidata = response;
         }
       })
       .catch(function(error) {

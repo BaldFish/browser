@@ -9,13 +9,13 @@
       <div class="count_box">
         <ul class="count">
           <li>
-            当前区块高度<span>258837</span>
+            当前区块高度<span>{{parseInt(apidata.currentHight)}}</span>
           </li>
           <li>
-            记帐节点数<span>4</span>
+            记帐节点数<span>{{parseInt(apidata.nodeNumber)}}</span>
           </li>
           <li>
-            存证TX条目数量<span>2</span>
+            存证TX条目数量<span>{{parseInt(apidata.cardNunber)}}</span>
           </li>
         </ul>
       </div>
@@ -36,11 +36,11 @@
               </tr>
             </thead> 
             <tbody>
-              <tr v-for="item in getnewblock">
-                <td>{{item.blockNumber}}</td>
-                <td>{{item.timestamp}}</td>
+              <tr v-for="item in apidata.getNewBlock">
+                <td>{{parseInt(item.blockNumber)}}</td>
+                <td>{{getFormatDate(parseInt(item.timestamp))}}</td>
                 <td>{{item.miner}}</td>
-                <td>{{item.number}}</td>
+                <td>{{parseInt(item.number)}}</td>
               </tr>
             </tbody>
           </table>
@@ -62,11 +62,11 @@
               </tr>
             </thead> 
             <tbody>
-              <tr v-for="item in cardlist">
+              <tr v-for="item in apidata.cardList">
                 <td>{{item.hash}}</td>
                 <td>{{item.message}}</td>
                 <td>{{item.partner}}</td>
-                <td>{{item.chainOnTime}}</td>
+                <td>{{getFormatDate(parseInt(item.chainOnTime))}}</td>
               </tr>
             </tbody>
           </table>
@@ -91,36 +91,6 @@ export default {
     apidata: {
       type: Object
     }
-  },
-  data() {
-    return {
-      getnewblock: [],
-      cardlist: []
-    };
-  },
-  created() {
-    axios
-      .get("/api/getnewblock")
-      .then(response => {
-        response = response.data;
-        if (response.errno === ERR_OK) {
-          this.getnewblock = response.data;
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-    axios
-      .get("/api/cardlist")
-      .then(response => {
-        response = response.data;
-        if (response.errno === ERR_OK) {
-          this.cardlist = response.data;
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
   },
   methods: {
     getFormatDate(val) {
