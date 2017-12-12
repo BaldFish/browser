@@ -7,6 +7,7 @@ import home from "./components/home/home";
 import block from "./components/block/block";
 import card from "./components/card/card";
 import account from "./components/account/account";
+import search from "./components/search/search";
 Vue.use(Router);
 Vue.config.productionTip = false;
 
@@ -32,6 +33,10 @@ const router = new Router({
     {
       path: "/account",
       component: account
+    },
+    {
+      path: "/search",
+      component: search
     }
   ]
 });

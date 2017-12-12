@@ -15,6 +15,9 @@
         <li class="nav">
           <router-link to="/account">账户身份</router-link>
         </li>
+        <li class="nav">
+          <router-link to="/search">筛查</router-link>
+        </li>
       </ul>
     </div>
     <keep-alive>

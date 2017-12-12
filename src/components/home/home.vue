@@ -2,17 +2,6 @@
   <div class="home">
     <div class="container">
       <div class="container_box">
-        <div class="search_box">
-          <div>
-            <select name="" class="search_select">
-              <option value="trade_hash">交易哈希</option>
-              <option value="block_hash">区块哈希</option>
-              <option value="block_height">区块高度</option>
-            </select>
-            <input class="search" type="text" placeholder="请输入查询条件">
-            <button class="btn">搜索</button>
-          </div>
-        </div>
 
         <div class="count_box">
           <ul class="count">
@@ -84,6 +73,7 @@
             </table>
           </div>
         </div>
+
       </div>
     </div>
     <div class="footer">
@@ -154,33 +144,6 @@ export default {
     padding: 20px;
 
     .container_box {
-      .search_box {
-        box-sizing: border-box;
-        font-size: 0;
-
-        .search, .search_select, .btn {
-          outline: none;
-          box-sizing: border-box;
-          border-radius: 5px;
-          height: 40px;
-          line-height: 40px;
-          background: #c0c0c0;
-          margin-right: 10px;
-          cursor: pointer;
-          border: none;
-          font-size: 14px;
-        }
-
-        .search {
-          padding: 0 10px;
-          width: 30%;
-        }
-
-        .btn:active {
-          background-color: #8882a3;
-        }
-      }
-
       .count_box {
         width: 100%;
         padding: 20px;
