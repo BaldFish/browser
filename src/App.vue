@@ -46,6 +46,14 @@ export default {
         var response = response.data;
         if (response.errno === ERR_OK) {
           response = response.data;
+          response.getNewBlock.forEach(function(item) {
+            item.number = parseInt(item.number, 16).toString();
+            item.timestamp = parseInt(item.timestamp, 16);
+            // item.number = parseInt(item.number, 16).toString();
+          });
+          response.cardList.forEach(function(item) {
+            item.timestamp = parseInt(item.timestamp, 16);
+          });
           this.apidata = response;
         }
       })

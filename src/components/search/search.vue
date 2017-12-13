@@ -2,7 +2,7 @@
   <div class="search">
 
     <div class="search_box">
-      <select name="" class="search_select">
+      <select name="" class="search_select" v-model="searchType">
         <option value="block_height">区块高度</option>
         <option value="block_hash">区块哈希</option>
         <option value="trade_hash">交易哈希</option>
@@ -10,18 +10,18 @@
       <input class="search_ipt" type="text" placeholder="请输入查询条件" v-model="search_content">
       <button class="btn" @click.prevent="search">搜索</button>
     </div>
-
+    {{searchType}}
     <div class="content">
       <table>
         <caption>
-          <p>查询时间：2017-12-12 13:30:46</p>
+          <p>查询时间：{{time}}</p>
         </caption>
         <colgroup>
           <col class="col1">
           <col class="col2">
         </colgroup>
         <tr>
-          <th colspan="2">区块#21</th>
+          <th colspan="2">区块{{getNewBlock.number}}</th>
         </tr>
         <tr>
           <td>交易笔数</td>
@@ -32,24 +32,24 @@
           <td></td>
         </tr>
         <tr>
-          <td>高度{{search_content}}</td>
-          <td></td>
+          <td>高度</td>
+          <td>{{getNewBlock.number}}</td>
         </tr>
         <tr>
           <td>区块生成时间</td>
-          <td></td>
+          <td>{{getFormatDate(getNewBlock.timestamp)}}</td>
         </tr>
         <tr>
           <td>版本</td>
-          <td></td>
+          <td>1.0</td>
         </tr>
         <tr>
           <td>哈希值</td>
-          <td></td>
+          <td>{{getNewBlock.hash}}</td>
         </tr>
         <tr>
           <td>上一区块</td>
-          <td></td>
+          <td>{{getNewBlock.parentHash}}</td>
         </tr>
       </table>
     </div>
@@ -67,17 +67,75 @@ export default {
   },
   data() {
     return {
+      time: "",
       search_content: "",
-      getNewBlock: {}
+      getNewBlock: {},
+      searchType: "block_height"
     };
   },
   methods: {
+    getSeachTime() {
+      var time = new Date();
+      time = this.getFormatDate(time);
+      return time;
+    },
     search() {
-      console.log(this.search_content);
-      this.getNewBlock = _.find(this.apidata.getNewBlock, item => {
-        return item.blockNumber === this.search_content;
-      });
-      console.log(this.getNewBlock);
+      if (this.searchType === "block_height") {
+        this.time = this.$options.methods.getSeachTime();
+        this.getNewBlock = _.find(this.apidata.getNewBlock, item => {
+          return item.number === this.search_content;
+        });
+        if (!this.getNewBlock) {
+          this.getNewBlock = {
+            number: "",
+            hash: "",
+            parentHash: "",
+            nonce: "",
+            sha3Uncles: "",
+            logsBloom: "",
+            transactionsRoot: "",
+            stateRoot: "",
+            miner: "",
+            difficulty: "",
+            totalDifficulty: "",
+            extraData: "",
+            size: "",
+            gasLimit: "",
+            gasUsed: "",
+            timestamp: "",
+            transactions: "",
+            uncles: ""
+          };
+        }
+      } else if (this.searchType === "block_hash") {
+        this.time = this.$options.methods.getSeachTime();
+        this.getNewBlock = _.find(this.apidata.getNewBlock, item => {
+          return item.blockNumber === this.search_content;
+        });
+        if (!this.getNewBlock) {
+          this.getNewBlock = {
+            number: "",
+            hash: "",
+            parentHash: "",
+            nonce: "",
+            sha3Uncles: "",
+            logsBloom: "",
+            transactionsRoot: "",
+            stateRoot: "",
+            miner: "",
+            difficulty: "",
+            totalDifficulty: "",
+            extraData: "",
+            size: "",
+            gasLimit: "",
+            gasUsed: "",
+            timestamp: this.time,
+            transactions: "",
+            uncles: ""
+          };
+        }
+      } else {
+      }
     },
     getFormatDate(val) {
       var nowDate = new Date(val);

@@ -9,14 +9,14 @@ const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 const portfinder = require("portfinder");
 
 //数据接口
-
 const express = require("express");
 const app = express();
-const appData = require("../db.json"); //加载本地数据文件
-const getnewblock = appData.getNewBlock; //获取对应的本地数据
-const cardlist = appData.cardList;
+const appData = require("../data.json"); //加载本地数据文件
+const getNewBlock = appData.getNewBlock; //获取对应的本地数据
+const cardList = appData.cardList;
 const apiRoutes = express.Router();
 app.use("/api", apiRoutes);
+//数据接口
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT && Number(process.env.PORT);
@@ -51,18 +51,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     },
 
     //数据接口
-
     before(app) {
-      app.get("/api/getnewblock", (req, res) => {
+      app.get("/api/getNewBlock", (req, res) => {
         res.json({
           errno: 0,
-          data: getnewblock
-        }); //接口返回json数据，上面配置的数据getnewblock就赋值给data请求后调用
+          data: getNewBlock
+        });
       }),
-        app.get("/api/cardlist", (req, res) => {
+        app.get("/api/cardList", (req, res) => {
           res.json({
             errno: 0,
-            data: cardlist
+            data: cardList
           });
         });
       app.get("/api", (req, res) => {
@@ -70,6 +69,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       });
     }
   },
+  //数据接口
+
   plugins: [
     new webpack.DefinePlugin({
       "process.env": require("../config/dev.env")

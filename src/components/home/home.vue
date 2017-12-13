@@ -7,15 +7,15 @@
           <ul class="count">
             <li>
               当前区块高度
-              <span>{{parseInt(apidata.currentHight)}}</span>
+              <span>{{apidata.getNewBlock.length}}</span>
             </li>
             <li>
               记帐节点数
-              <span>{{parseInt(apidata.nodeNumber)}}</span>
+              <span>{{5}}</span>
             </li>
             <li>
               存证TX条目数量
-              <span>{{parseInt(apidata.cardNunber)}}</span>
+              <span>{{apidata.cardList.length}}</span>
             </li>
           </ul>
         </div>
@@ -37,10 +37,10 @@
               </thead>
               <tbody>
                 <tr v-for="item in apidata.getNewBlock">
-                  <td>{{parseInt(item.blockNumber)}}</td>
-                  <td>{{getFormatDate(parseInt(item.timestamp))}}</td>
+                  <td>{{item.number}}</td>
+                  <td>{{getFormatDate(item.timestamp)}}</td>
                   <td>{{item.miner}}</td>
-                  <td>{{parseInt(item.number)}}</td>
+                  <td>{{item.transactions.length}}</td>
                 </tr>
               </tbody>
             </table>
@@ -65,9 +65,9 @@
               <tbody>
                 <tr v-for="item in apidata.cardList">
                   <td>{{item.hash}}</td>
-                  <td>{{item.message}}</td>
+                  <td>{{item.transactionIndex}}</td>
                   <td>{{item.partner}}</td>
-                  <td>{{getFormatDate(parseInt(item.chainOnTime))}}</td>
+                  <td>{{getFormatDate(item.timestamp)}}</td>
                 </tr>
               </tbody>
             </table>
