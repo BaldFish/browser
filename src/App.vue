@@ -46,13 +46,17 @@ export default {
         var response = response.data;
         if (response.errno === ERR_OK) {
           response = response.data;
-          response.getNewBlock.forEach(function(item) {
+          response.getNewBlock.forEach(item => {
             item.number = parseInt(item.number, 16).toString();
-            item.timestamp = parseInt(item.timestamp, 16);
+            item.timestamp = this.$options.methods.getFormatDate(
+              parseInt(item.timestamp, 16)
+            );
             // item.number = parseInt(item.number, 16).toString();
           });
-          response.cardList.forEach(function(item) {
-            item.timestamp = parseInt(item.timestamp, 16);
+          response.cardList.forEach(item => {
+            item.timestamp = this.$options.methods.getFormatDate(
+              parseInt(item.timestamp, 16)
+            );
           });
           this.apidata = response;
         }
@@ -60,6 +64,41 @@ export default {
       .catch(function(error) {
         console.log(error);
       });
+  },
+  methods: {
+    getFormatDate(val) {
+      var nowDate = new Date(val);
+      var year = nowDate.getFullYear();
+      var month =
+        nowDate.getMonth() + 1 < 10
+          ? "0" + (nowDate.getMonth() + 1)
+          : nowDate.getMonth() + 1;
+      var date =
+        nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
+      var hour =
+        nowDate.getHours() < 10 ? "0" + nowDate.getHours() : nowDate.getHours();
+      var minute =
+        nowDate.getMinutes() < 10
+          ? "0" + nowDate.getMinutes()
+          : nowDate.getMinutes();
+      var second =
+        nowDate.getSeconds() < 10
+          ? "0" + nowDate.getSeconds()
+          : nowDate.getSeconds();
+      return (
+        year +
+        "-" +
+        month +
+        "-" +
+        date +
+        " " +
+        hour +
+        ":" +
+        minute +
+        ":" +
+        second
+      );
+    }
   }
 };
 </script>

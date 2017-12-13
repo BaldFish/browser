@@ -10,7 +10,6 @@
       <input class="search_ipt" type="text" placeholder="请输入查询条件" v-model="search_content">
       <button class="btn" @click.prevent="search">搜索</button>
     </div>
-    {{searchType}}
     <div class="content">
       <table>
         <caption>
@@ -25,11 +24,11 @@
         </tr>
         <tr>
           <td>交易笔数</td>
-          <td></td>
+          <td>{{getNewBlock.transactions.length}}</td>
         </tr>
         <tr>
           <td>存证记录个数</td>
-          <td></td>
+          <td>{{getNewBlock.transactions.length}}</td>
         </tr>
         <tr>
           <td>高度</td>
@@ -37,7 +36,7 @@
         </tr>
         <tr>
           <td>区块生成时间</td>
-          <td>{{getFormatDate(getNewBlock.timestamp)}}</td>
+          <td>{{getNewBlock.timestamp}}</td>
         </tr>
         <tr>
           <td>版本</td>
@@ -69,7 +68,9 @@ export default {
     return {
       time: "",
       search_content: "",
-      getNewBlock: {},
+      getNewBlock: {
+        transactions: []
+      },
       searchType: "block_height"
     };
   },
@@ -110,7 +111,7 @@ export default {
       } else if (this.searchType === "block_hash") {
         this.time = this.$options.methods.getSeachTime();
         this.getNewBlock = _.find(this.apidata.getNewBlock, item => {
-          return item.blockNumber === this.search_content;
+          return item.hash === this.search_content;
         });
         if (!this.getNewBlock) {
           this.getNewBlock = {
@@ -129,7 +130,7 @@ export default {
             size: "",
             gasLimit: "",
             gasUsed: "",
-            timestamp: this.time,
+            timestamp: "",
             transactions: "",
             uncles: ""
           };

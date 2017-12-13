@@ -7,7 +7,7 @@
           <ul class="count">
             <li>
               当前区块高度
-              <span>{{apidata.getNewBlock.length}}</span>
+              <span>{{10}}</span>
             </li>
             <li>
               记帐节点数
@@ -15,7 +15,7 @@
             </li>
             <li>
               存证TX条目数量
-              <span>{{apidata.cardList.length}}</span>
+              <span>{{10}}</span>
             </li>
           </ul>
         </div>
@@ -38,7 +38,7 @@
               <tbody>
                 <tr v-for="item in apidata.getNewBlock">
                   <td>{{item.number}}</td>
-                  <td>{{getFormatDate(item.timestamp)}}</td>
+                  <td>{{item.timestamp}}</td>
                   <td>{{item.miner}}</td>
                   <td>{{item.transactions.length}}</td>
                 </tr>
@@ -67,7 +67,7 @@
                   <td>{{item.hash}}</td>
                   <td>{{item.transactionIndex}}</td>
                   <td>{{item.partner}}</td>
-                  <td>{{getFormatDate(item.timestamp)}}</td>
+                  <td>{{item.timestamp}}</td>
                 </tr>
               </tbody>
             </table>
@@ -93,43 +93,16 @@ const ERR_OK = 0;
 export default {
   props: {
     apidata: {
-      type: Object
+      type: Object,
+      getNewBlock: [],
+      cardList: []
     }
   },
-  methods: {
-    getFormatDate(val) {
-      var nowDate = new Date(val);
-      var year = nowDate.getFullYear();
-      var month =
-        nowDate.getMonth() + 1 < 10
-          ? "0" + (nowDate.getMonth() + 1)
-          : nowDate.getMonth() + 1;
-      var date =
-        nowDate.getDate() < 10 ? "0" + nowDate.getDate() : nowDate.getDate();
-      var hour =
-        nowDate.getHours() < 10 ? "0" + nowDate.getHours() : nowDate.getHours();
-      var minute =
-        nowDate.getMinutes() < 10
-          ? "0" + nowDate.getMinutes()
-          : nowDate.getMinutes();
-      var second =
-        nowDate.getSeconds() < 10
-          ? "0" + nowDate.getSeconds()
-          : nowDate.getSeconds();
-      return (
-        year +
-        "-" +
-        month +
-        "-" +
-        date +
-        " " +
-        hour +
-        ":" +
-        minute +
-        ":" +
-        second
-      );
-    }
+  data() {
+    return {
+      getNewBlock: [],
+      cardList: []
+    };
   }
 };
 </script>
