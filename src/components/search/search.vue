@@ -11,7 +11,7 @@
       <button class="btn" @click.prevent="search">搜索</button>
     </div>
     <div class="content">
-      <table>
+      <table v-if="searchType==='block_height'">
         <caption>
           <p>查询时间：{{time}}</p>
         </caption>
@@ -20,23 +20,23 @@
           <col class="col2">
         </colgroup>
         <tr>
-          <th colspan="2">区块{{getNewBlock.number}}</th>
+          <th colspan="2">区块{{getBlockHeight.number}}</th>
         </tr>
         <tr>
           <td>交易笔数</td>
-          <td>{{getNewBlock.transactions.length}}</td>
+          <td>{{getBlockHeight.transactions.length}}</td>
         </tr>
         <tr>
           <td>存证记录个数</td>
-          <td>{{getNewBlock.transactions.length}}</td>
+          <td>{{getBlockHeight.transactions.length}}</td>
         </tr>
         <tr>
           <td>高度</td>
-          <td>{{getNewBlock.number}}</td>
+          <td>{{getBlockHeight.number}}</td>
         </tr>
         <tr>
           <td>区块生成时间</td>
-          <td>{{getNewBlock.timestamp}}</td>
+          <td>{{getBlockHeight.timestamp}}</td>
         </tr>
         <tr>
           <td>版本</td>
@@ -44,12 +44,149 @@
         </tr>
         <tr>
           <td>哈希值</td>
-          <td>{{getNewBlock.hash}}</td>
+          <td>{{getBlockHeight.hash}}</td>
         </tr>
         <tr>
           <td>上一区块</td>
-          <td>{{getNewBlock.parentHash}}</td>
+          <td>{{getBlockHeight.parentHash}}</td>
         </tr>
+      </table>
+
+      <table v-else-if="searchType==='block_hash'">
+        <caption>
+          <p>查询时间：{{time}}</p>
+        </caption>
+        <colgroup>
+          <col class="col1">
+          <col class="col2">
+        </colgroup>
+        <tr>
+          <th colspan="2">区块{{getBlockHash.number}}</th>
+        </tr>
+        <tr>
+          <td>交易笔数</td>
+          <td>{{getBlockHash.transactions.length}}</td>
+        </tr>
+        <tr>
+          <td>存证记录个数</td>
+          <td>{{getBlockHash.transactions.length}}</td>
+        </tr>
+        <tr>
+          <td>高度</td>
+          <td>{{getBlockHash.number}}</td>
+        </tr>
+        <tr>
+          <td>区块生成时间</td>
+          <td>{{getBlockHash.timestamp}}</td>
+        </tr>
+        <tr>
+          <td>版本</td>
+          <td>1.0</td>
+        </tr>
+        <tr>
+          <td>哈希值</td>
+          <td>{{getBlockHash.hash}}</td>
+        </tr>
+        <tr>
+          <td>上一区块</td>
+          <td>{{getBlockHash.parentHash}}</td>
+        </tr>
+      </table>
+
+      <table v-else>
+        <caption>
+          <h3>区块链交易鉴证信息</h3>
+          <p>鉴证时间：{{time}}</p>
+        </caption>
+        <colgroup>
+          <col class="col1">
+          <col class="col2">
+        </colgroup>
+        <tr>
+          <td>交易哈希</td>
+          <td>{{getTradeHash.hash}}</td>
+        </tr>
+        <tr>
+          <td>交易时间</td>
+          <td>{{getTradeHash.timestamp}}</td>
+        </tr>
+        <tr>
+          <td>投保时间</td>
+          <td>{{getTradeHash.timestamp}}</td>
+        </tr>
+        <tr>
+          <td>承保公司</td>
+          <td>{{getTradeHash.timestamp}}</td>
+        </tr>
+        <tr>
+          <td>保险类型</td>
+          <td>1.0</td>
+        </tr>
+        <tr>
+          <td>保险单号</td>
+          <td>{{getTradeHash.hash}}</td>
+        </tr>
+        <tr>
+          <td>保险期间</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>被保险人</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>证件类型</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>证件号码</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>承保险种</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>车牌号</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>车主</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>车辆型号</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>初登日期</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>车辆识别代号</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>发动机号</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>机动车种类</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>投保渠道</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>销售机构</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+        <tr>
+          <td>营业员</td>
+          <td>{{getTradeHash.parentHash}}</td>
+        </tr>
+
       </table>
     </div>
   </div>
@@ -67,11 +204,15 @@ export default {
   data() {
     return {
       time: "",
+      searchType: "block_height",
       search_content: "",
-      getNewBlock: {
+      getBlockHeight: {
         transactions: []
       },
-      searchType: "block_height"
+      getBlockHash: {
+        transactions: []
+      },
+      getTradeHash: {}
     };
   },
   methods: {
@@ -83,11 +224,11 @@ export default {
     search() {
       if (this.searchType === "block_height") {
         this.time = this.$options.methods.getSeachTime();
-        this.getNewBlock = _.find(this.apidata.getNewBlock, item => {
+        this.getBlockHeight = _.find(this.apidata.getNewBlock, item => {
           return item.number === this.search_content;
         });
-        if (!this.getNewBlock) {
-          this.getNewBlock = {
+        if (!this.getBlockHeight) {
+          this.getBlockHeight = {
             number: "",
             hash: "",
             parentHash: "",
@@ -110,11 +251,11 @@ export default {
         }
       } else if (this.searchType === "block_hash") {
         this.time = this.$options.methods.getSeachTime();
-        this.getNewBlock = _.find(this.apidata.getNewBlock, item => {
+        this.getBlockHash = _.find(this.apidata.getNewBlock, item => {
           return item.hash === this.search_content;
         });
-        if (!this.getNewBlock) {
-          this.getNewBlock = {
+        if (!this.getBlockHash) {
+          this.getBlockHash = {
             number: "",
             hash: "",
             parentHash: "",
@@ -136,6 +277,27 @@ export default {
           };
         }
       } else {
+        this.time = this.$options.methods.getSeachTime();
+        this.getTradeHash = _.find(this.apidata.cardList, item => {
+          return item.hash === this.search_content;
+        });
+        if (!this.getTradeHash) {
+          this.getTradeHash = {
+            hash: "",
+            nonce: "",
+            blockHash: "",
+            blockNumber: "",
+            timestamp: "",
+            transactionIndex: "",
+            partner: "",
+            from: "",
+            to: "",
+            value: "",
+            gas: "",
+            gasPrice: "",
+            input: ""
+          };
+        }
       }
     },
     getFormatDate(val) {
