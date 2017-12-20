@@ -68,8 +68,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         res.json({ errno: 0, data: appData });
       });
     }
+	//数据接口
   },
-  //数据接口
+  
 
   plugins: [
     new webpack.DefinePlugin({
